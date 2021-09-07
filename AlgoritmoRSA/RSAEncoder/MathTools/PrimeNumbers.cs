@@ -5,8 +5,9 @@ namespace RSAEncoder.MathTools
 {
     public static class PrimeNumbers
     {
-        const int maxPrimeLength = 100000;
-        public static bool VerifyPrimeNumber(int number)
+        const long maxPrimeLength = 100000000;
+
+        public static bool VerifyPrimeNumber(long number)
         {
             if (number < 2)
                 return false;
@@ -18,15 +19,16 @@ namespace RSAEncoder.MathTools
             return true;
         }
 
-        public static int CreateRandomPrimeNumber(int minGeneratorLength = 0, int maxGeneratorLength = maxPrimeLength)
+        public static long CreateRandomPrimeNumber(long minGeneratorLength = 0, long maxGeneratorLength = maxPrimeLength)
         {
             if (maxGeneratorLength <= minGeneratorLength)
                 throw new PrimeNumberException("O valor de geração máximo deve ser maior que o valor de geração mínimo. ");
             Random randomGenerator = new Random();
-            int randNumber;
+
+            long randNumber;
             while (true)
             {
-                randNumber = randomGenerator.Next(minGeneratorLength, maxGeneratorLength);
+                randNumber = CalculationTools.LongRandom(minGeneratorLength, maxGeneratorLength, randomGenerator);
                 if (VerifyPrimeNumber(randNumber))
                     return randNumber;
             }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSAEncoder.CryptographyTools
 {
@@ -17,13 +13,13 @@ namespace RSAEncoder.CryptographyTools
             keys = keyGenerator.CreateKeys(p, q);
         }
 
-        public List<int> Encrypt(string message)
+        public List<long> Encrypt(string message)
         {
-            var encryptedMessage = new List<int>();
+            var encryptedMessage = new List<long>();
             foreach (var character in message)
             {
                 var messageAscii = (int)character;
-                encryptedMessage.Add((int)BigInteger.ModPow(messageAscii, keys.Public.E, keys.Public.N));
+                encryptedMessage.Add((long)BigInteger.ModPow(messageAscii, keys.Public.E, keys.Public.N));
             }
                 
 
@@ -31,7 +27,7 @@ namespace RSAEncoder.CryptographyTools
         }
 
         //test
-        public char Decrypt(int x)
+        public char Decrypt(long x)
         {
             var a = BigInteger.ModPow(x, keys.Private.D, keys.Private.N);
             return (char)a;

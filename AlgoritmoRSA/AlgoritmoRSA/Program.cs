@@ -16,20 +16,25 @@ namespace AlgoritmoRSA
                 //else
                 //    Console.WriteLine("não é primo");
 
-                RSAEncoder.CryptographyTools.Encoder encoder = new RSAEncoder.CryptographyTools.Encoder(3, 11);
+                RSAEncoder.CryptographyTools.Encoder encoder = new RSAEncoder.CryptographyTools.Encoder();
                 var test = encoder.Encrypt(message);
+
+                Console.WriteLine("Quem entender é guei:");
 
                 foreach (var item in test)
                 {
-                    Console.WriteLine(item);
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine(Environment.NewLine);
+                Console.WriteLine("decript:");
+
+                foreach (var item in test)
+                {
+                    Console.Write(encoder.Decrypt(item));
                 }
 
-                Console.WriteLine("decript:");
-                var a = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine(encoder.Decrypt(a));
-
                 Console.ReadLine();
+                Console.Clear();
             }
         }
     }

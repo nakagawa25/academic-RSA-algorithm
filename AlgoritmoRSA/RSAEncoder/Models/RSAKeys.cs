@@ -14,12 +14,12 @@
 
     public class PrivateKey
     {
-        public int D { get; set; }
-        public int N { get; set; }
+        public long D { get; set; }
+        public long N { get; set; }
     }
     public class PublicKey
     {
-        public int E { get; set; }
-        public int N { get; set; }
+        public long E { get; set; }
+        public long N { get; set; }
     }
 }
