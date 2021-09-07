@@ -27,7 +27,6 @@ namespace RSAEncoder.CryptographyTools
 
         private void InstancePQNumbers(long? p = null, long? q = null)
         {
-
             rsaNumbers.P = (p == null) ? MathTools.PrimeNumbers.CreateRandomPrimeNumber() : (long)p;
             if (q == null)
             {
