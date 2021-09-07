@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
 
 namespace RSAEncoder.CryptographyTools
@@ -8,30 +9,33 @@ namespace RSAEncoder.CryptographyTools
         private Models.RSAKeys keys;
         public Encoder(int? p = null, int? q = null)
         {
-            // Todo: Adicionar função de poder enviar a chave pelo ctor
             KeyGenerator keyGenerator = new KeyGenerator();
             keys = keyGenerator.CreateKeys(p, q);
         }
 
-        public List<long> Encrypt(string message)
+        public Encoder(string pathToSaveKeys, bool createNewKeys, int? p = null, int? q = null)
+        {
+            KeyGenerator keyGenerator = new KeyGenerator();
+            keys = createNewKeys ? keyGenerator.CreateKeys(pathToSaveKeys, p, q) : keyGenerator.GetKeysFromFile(Path.Combine(pathToSaveKeys, "Keys"));
+        }
+
+        public string Encrypt(string message)
         {
             var encryptedMessage = new List<long>();
             foreach (var character in message)
-            {
-                var messageAscii = (int)character;
-                encryptedMessage.Add((long)BigInteger.ModPow(messageAscii, keys.Public.E, keys.Public.N));
-            }
-                
+                encryptedMessage.Add((long)BigInteger.ModPow((int)character, keys.Public.E, keys.Public.N));
 
-            return encryptedMessage;
+            return System.Convert.ToBase64String(Utils.Tools.GetByteArray(encryptedMessage)); ;
         }
 
-        //test
-        public char Decrypt(long x)
+        public string Decrypt(string message)
         {
-            var a = BigInteger.ModPow(x, keys.Private.D, keys.Private.N);
-            return (char)a;
-        }
+            List<long> cryptoCharacter = Utils.Tools.GetLongListFromByteArray(System.Convert.FromBase64String(message));
+            string plainText = string.Empty;
+            foreach (var characterEncrypted in cryptoCharacter)
+                plainText += (char)BigInteger.ModPow(characterEncrypted, keys.Private.D, keys.Private.N);
 
+            return plainText;
+        }
     }
 }

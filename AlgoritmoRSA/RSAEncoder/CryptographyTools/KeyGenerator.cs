@@ -4,24 +4,39 @@
     {
         private Models.RSAKeys Keys { get; set; }
 
+        public KeyGenerator()
+        {
+            Keys = new Models.RSAKeys();
+        }
+
         public Models.RSAKeys CreateKeys(int? p = null, int? q = null)
         {
             RSAAlgorithm rsaCreator = new RSAAlgorithm();
             Models.RSANumbers rsaNumbers = rsaCreator.GetRSANumbers(p, q);
-            var keys = new Models.RSAKeys();
-            keys.Public.E = rsaNumbers.E;
-            keys.Public.N = rsaNumbers.N;
-            keys.Private.D = rsaNumbers.D;
-            keys.Private.N = rsaNumbers.N;
+            Keys.Public.E = rsaNumbers.E;
+            Keys.Public.N = rsaNumbers.N;
+            Keys.Private.D = rsaNumbers.D;
+            Keys.Private.N = rsaNumbers.N;
 
-            return keys;
+            return Keys;
         }
 
-        public Models.RSAKeys GetKeysFromFile()
+        public Models.RSAKeys CreateKeys(string pathToSaveKeys, int? p = null, int? q = null)
         {
-            // TODO: Retornar dos Arquivos
+            CreateKeys(p, q);
+            SaveKeys(pathToSaveKeys);
 
-            return null;
+            return Keys;
+        }
+
+        public Models.RSAKeys GetKeysFromFile(string path)
+        {
+            return Utils.IOKeys.GetKeys(path);
+        }
+
+        private void SaveKeys(string path)
+        {
+            Utils.IOKeys.SaveKeys(path, Keys);
         }
     }
 }
