@@ -12,7 +12,7 @@ A mensagem criptografada, retornada pela aplicação após o processo de criptog
 - .NET Framework
 - C#
 
-## Running
+## Execução
 ### Geração das chaves
 1. Execute o arquivo executável gerado pelo build da aplicação.
 2. Selecione uma opção para geração das chaves.
@@ -24,3 +24,7 @@ A mensagem criptografada, retornada pela aplicação após o processo de criptog
 1. Selecione a opção número 2.
 2. Insira a mensagem a ser decriptografada.
 3. Digite a tecla ENTER e veja a mensagem decifrada.
+
+## Demonstração
+Acesse o vídeo a seguir para visualizar a aplicação em execução
+https://www.youtube.com/watch?v=gxbQ1BWU244
